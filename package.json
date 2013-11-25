@@ -1,0 +1,38 @@
+{
+  "name": "superposition",
+  "description": "Executing code in more than one env at the same time.",
+  "version": "0.0.1",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ibrokethat/superposition.git"
+  },
+  "dependencies": {
+    "express": "3.4.x",
+    "config": "0.4.x",
+    "yaml": "*",
+    "request": "2.27.x",
+    "async": "https://api.github.com/repos/ibrokethat/async/tarball#v0.0.4",
+    "func": "https://api.github.com/repos/ibrokethat/func/tarball#v0.0.4",
+    "is": "https://api.github.com/repos/ibrokethat/is/tarball#v0.0.4",
+    "iter": "https://api.github.com/repos/ibrokethat/iter/tarball#v0.0.4",
+    "pipe": "https://api.github.com/repos/ibrokethat/pipe/tarball#v0.0.5",
+    "require-all": "0.0.x",
+    "metalogger": "0.1.x",
+    "moment": "x",
+    "jsdom": "0.8.x"
+  },
+  "devDependencies": {
+    "assert": "*",
+    "should": "*",
+    "mocha": "*",
+    "chai": "*",
+    "sinon": "*",
+    "sinon-chai": "*",
+    "rewire": "2.0.x"
+  },
+  "scripts": {
+    "prepublish" : "npm prune",
+    "test" : "mocha -u bdd --reporter spec --recursive"
+  }
+}
