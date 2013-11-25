@@ -1,6 +1,6 @@
 {
   "name": "superposition",
-  "description": "Executing code in more than one env at the same time.",
+  "description": "Executing code in more than one env at a time.",
   "version": "0.0.1",
   "main": "server.js",
   "repository": {
