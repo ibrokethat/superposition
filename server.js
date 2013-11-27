@@ -4,7 +4,7 @@ var cluster = require('cluster');
 var express = require('express');
 var app     = express();
 var CONF    = require('config');
-var log     = require('metalogger')();
+// var log     = require('metalogger')();
 
 if ('log' in CONF) {
 
@@ -18,7 +18,7 @@ if ('log' in CONF) {
   }
 }
 
-require('./lib/services').setup();
+// require('./lib/services').setup();
 require('./lib/app').setup(app);
 
 var isClusterMaster = (cluster.isMaster && (process.env.NODE_CLUSTERED == 1));
@@ -31,7 +31,7 @@ if (isClusterMaster ||
 }
 
 
-log.debug("is http thread? " + is_http_thread);
+console.log("is http thread? " + is_http_thread);
 
 if (isClusterMaster) {
   require('./lib/clustering').setup();
@@ -43,5 +43,5 @@ if (is_http_thread) {
 
 // If we are not running a cluster at all:
 if (!isClusterMaster && cluster.isMaster) {
-  log.notice("Express server instance listening on port " + CONF.app.port);
+  console.log("Express server instance listening on port " + CONF.app.port);
 }
