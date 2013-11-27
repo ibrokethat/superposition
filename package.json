@@ -17,8 +17,9 @@
     "is": "https://api.github.com/repos/ibrokethat/is/tarball#v0.0.4",
     "iter": "https://api.github.com/repos/ibrokethat/iter/tarball#v0.0.4",
     "pipe": "https://api.github.com/repos/ibrokethat/pipe/tarball#v0.0.5",
+    "registry": "https://api.github.com/repos/ibrokethat/registry/tarball",
     "require-all": "0.0.x",
-    "metalogger": "0.1.x",
+    "bunyan": "0.1.x",
     "moment": "x",
     "jsdom": "0.8.x"
   },
