@@ -1,0 +1,6 @@
+---
+  USER: "{USER}"
+  GROUP: "{GROUP}"
+  LOG_ROOT: "{PWD}/logs"
+  PLATFORM_ROOT: "{PWD}"
+  PORT: "{PORT}"

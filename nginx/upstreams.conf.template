@@ -1,0 +1,3 @@
+upstream superposition_apis  {
+  server localhost:3000;
+}

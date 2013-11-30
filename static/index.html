@@ -12,6 +12,35 @@
 
     <title>superposition</title>
 
+    <script>
+
+      'use strict';
+      (function () {
+
+        var loaded = false;
+
+        function init () {
+          if (loaded) {
+            require('main');
+          }
+          loaded = true;
+        }
+
+        if (typeof Object.create === 'function') {
+
+          var script = document.createElement('script');
+          script.src = "/static/build/dist.js";
+          script.onload = init;
+
+          document.getElementsByTagName('head')[0].appendChild(script);
+
+          document.addEventListener('DOMContentLoaded', init);
+        }
+
+      })();
+
+    </script>
+
   </head>
   <body>
   </body>
