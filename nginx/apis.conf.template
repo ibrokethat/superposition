@@ -11,5 +11,6 @@ location / {
 
 
 location /static {
-  try_files $uri $uri/;
+  root {PLATFORM_ROOT}/static;
 }
+
