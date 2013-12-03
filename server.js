@@ -19,7 +19,7 @@ if ('log' in CONF) {
 }
 
 // require('./lib/services').setup();
-require('./lib/app').setup(app);
+require('./lib/app/server').setup(app);
 
 var isClusterMaster = (cluster.isMaster && (process.env.NODE_CLUSTERED == 1));
 

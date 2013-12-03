@@ -103,7 +103,7 @@ if [ $NODE_HOT_RELOAD -eq 0 ]; then
     NCMD="$NCMD -o $NODE_LOG_DIR/out.log"
     NCMD="$NCMD -e $NODE_LOG_DIR/err.log"
 else
-    NCMD="supervisor --debug -n exit -w ./lib,./api,$NODE_CONFIG_DIR,$NODE_LAUNCH_SCRIPT"
+    NCMD="supervisor --debug -n exit -w ./lib,./components,$NODE_CONFIG_DIR,$NODE_LAUNCH_SCRIPT"
 fi
 
 NCMD="$NCMD $NODE_LAUNCH_SCRIPT"

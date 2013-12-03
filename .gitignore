@@ -28,3 +28,5 @@ nginx/upstreams.conf
 nginx/apis.conf
 
 logs/
+
+static/build
