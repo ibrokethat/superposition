@@ -21,7 +21,9 @@
 
         function init () {
           if (loaded) {
-            require('main');
+            require('../apis/client').setup({
+              'X-Render-Mode': 'server'
+            });
           }
           loaded = true;
         }
@@ -29,7 +31,7 @@
         if (typeof Object.create === 'function') {
 
           var script = document.createElement('script');
-          script.src = "/static/build/dist.js";
+          script.src = "/static/build/client.js";
           script.onload = init;
 
           document.getElementsByTagName('head')[0].appendChild(script);
