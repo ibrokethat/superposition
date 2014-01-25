@@ -6,4 +6,8 @@ apis:
   base: "/apis"
   components: "/components"
 files:
-  index: "index.html"
+  index: "/static/index.html"
+attributes:
+  base: "data-sp-"
+  component: "component"
+  componentType: "component-type"
