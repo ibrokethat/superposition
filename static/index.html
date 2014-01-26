@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-touch-fullscreen" content="yes">
 
-    <title>HackneyGrove|Architecture|www.hackneygrove.com</title>
+    <title>{{description}}</title>
 
     <style>
       .inactive {
@@ -28,7 +28,7 @@
 
         function init () {
           if (loaded) {
-            require('../apis/client').setup({
+            require('superposition/apis/client').setup({
               'X-Render-Mode': 'server'
             });
           }
