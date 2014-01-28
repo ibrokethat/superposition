@@ -4,3 +4,4 @@
   LOG_ROOT: "{PWD}/logs"
   PLATFORM_ROOT: "{PWD}"
   PORT: "{PORT}"
+  UPSTREAM_PORT: "{UPSTREAM_PORT}"

@@ -1,6 +1,6 @@
 sudo -v;
 
-NGINX_HOME=/usr/local/etc/nginx
+NGINX_HOME=/etc/nginx
 PWD=`pwd`
 
 if [ -d "$1" ]; then

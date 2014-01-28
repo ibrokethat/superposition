@@ -1,6 +1,7 @@
 var yaml = require('yaml');
 var fs = require('fs');
 var path = require('path');
+var CONF = require('config');
 var interpolate = require('mutil').interpolate;
 var file, fileName;
 
@@ -18,9 +19,10 @@ else {
 
 		file = interpolate( file, {
 			GROUP : 'admin',
-			PWD   : path.join( __dirname, '..' ),
-			PORT  : process.argv[2] || 80,
-			USER  : process.env.USER
+			PWD : path.join( __dirname, '..' ),
+			PORT : process.argv[2] || 80,
+			USER : process.env.USER,
+      UPSTREAM_PORT: CONF.app.port
 		} );
 
 		fs.writeFileSync( path.join(__dirname, 'dev.yaml'), file, 'UTF-8' );

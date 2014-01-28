@@ -2,5 +2,5 @@
   USER: "ec2-user"
   GROUP: "wheel"
   LOG_ROOT: "/var/log"
-  PLATFORM_ROOT: "/home/ec2-user/segoat"
+  PLATFORM_ROOT: "/home/ec2-user/superposition"
   PORT: "80"
