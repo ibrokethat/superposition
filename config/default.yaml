@@ -8,6 +8,12 @@ apis:
 files:
   index: "/static/index.html"
 attributes:
-  base: "data-sp-"
-  component: "component"
-  componentType: "component-type"
+  component: "data-sp-component"
+  component_type: "data-sp-component-type"
+  controller: "data-sp-controller"
+  route: "data-sp-route"
+classes:
+  active: "sp-active"
+  inactive: sp-inactive
+  transition_active: "sp-transition-to-active"
+  transition_inactive: "sp-transition-to-inactive"
