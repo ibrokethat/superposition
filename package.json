@@ -1,28 +1,35 @@
 {
+  "author" : {
+    "Simon Jefford" : "si@ibrokethat.com"
+  },
   "name": "superposition",
   "description": "Executing code in more than one env at a time.",
-  "version": "0.0.1",
-  "main": "server.js",
+  "version": "0.1.0",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:ibrokethat/superposition.git"
   },
   "dependencies": {
-    "express": "3.4.x",
+    "co": "3.1.x",
+    "co-defer": "0.1.x",
+    "co-request": "0.2.x",
+    "co-sleep": "0.0.x",
     "config": "0.4.x",
-    "yaml": "*",
-    "request": "2.27.x",
-    "super-async": "0.0.x",
+    "jsdom": "0.8.x",
+    "koa": "^0.12.1",
+    "moment-timezone": "0.2.x",
+    "pm2": "0.10.x",
+    "require-all": "0.0.x",
+    "su-define-object": "git+ssh://git@github.com:super-useful/su-define-object.git",
+    "su-service": "git+ssh://git@github.com:super-useful/su-service.git",
     "super-func": "0.0.x",
     "super-is": "0.0.x",
-    "super-iter": "0.0.x",
-    "super-pipe": "0.0.x",
+    "super-iter": "git+ssh://git@github.com:ibrokethat/iter.git#v0.1.0",
     "super-registry": "0.0.x",
-    "require-all": "0.0.x",
-    "bunyan": "0.1.x",
-    "moment": "x",
-    "jsdom": "0.8.x",
-    "mutil": "*"
+    "useful-copy": "x",
+    "useful-value": "x",
+    "yaml": "*"
   },
   "devDependencies": {
     "assert": "*",
@@ -31,10 +38,18 @@
     "chai": "*",
     "sinon": "*",
     "sinon-chai": "*",
-    "rewire": "2.0.x"
+    "rewire": "2.0.x",
+    "blanket": "1.1.x"
   },
   "scripts": {
-    "prepublish" : "npm prune",
-    "test" : "mocha -u bdd --reporter spec --recursive"
+    "test": "export NODE_ENV='test' && node --harmony --harmony_typeof ./node_modules/.bin/mocha --colors --harmony --harmony_typeof --recursive -R spec --ui bdd ./test",
+    "test-cov": "export NODE_ENV='test' && node --harmony --harmony_typeof ./node_modules/.bin/mocha --colors --harmony --harmony_typeof --recursive --require blanket -R html-cov --ui bdd ./test/**/*.js > test-coverage.html",
+    "test-jenkins": "export NODE_ENV='test' && node --harmony --harmony_typeof ./node_modules/.bin/mocha --colors --harmony --harmony_typeof --recursive -R xunit --ui bdd ./test/**/*.js > test-reports.xml",
+    "start": "node --harmony --harmony_typeof index.js"
+  },
+  "config" : {
+    "blanket" : {
+      "pattern" : ["/apis", "/lib"]
+    }
   }
 }

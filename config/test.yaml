@@ -1,0 +1,8 @@
+app:
+  port: 5000
+  pub_dir: "/public"
+  cookie_secret: "chicken-gangnam-style"
+apis:
+  base: "/apis"
+files:
+  index: "/static/index.html"
