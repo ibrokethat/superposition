@@ -1,6 +1,0 @@
----
-  USER: "ec2-user"
-  GROUP: "wheel"
-  LOG_ROOT: "/var/log"
-  PLATFORM_ROOT: "/home/ec2-user/segoat"
-  PORT: "80"

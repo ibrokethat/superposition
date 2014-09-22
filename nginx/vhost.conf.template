@@ -1,9 +1,0 @@
-server {
-  listen {PORT};
-  server_name localhost;
-
-  root {PLATFORM_ROOT};
-
-  include apis.conf;
-}
-
