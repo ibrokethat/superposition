@@ -1,19 +1,32 @@
 var path = require('path');
 var fs = require('co-fs');
 var co = require('co');
+var parallel = require('co-parallel');
 
 var koa = require('koa');
 var Router = require('koa-router');
 
-var CONF = require('config');
+var func = require('super-func');
+var partial = func.partial;
 var iter = require('super-iter');
 var forEach = iter.forEach;
+var map = iter.map;
+
+var CONF = require('config');
 
 module.exports = function * superposition (src) {
 
-
   forEach(src, initApps);
+}
 
+function * openFile (dir, fileName) {
+
+  var filePath = path.resolve(dir, fileName);
+
+  return {
+    fileName: fileName,
+    file: yield fs.readFile(filePath, 'utf8')
+  };
 }
 
 
@@ -30,18 +43,16 @@ function initApps (def, version) {
 
     co(function * () {
 
-      var files = yield fs.readdir(path.resolve('src/', version, 'components', component));
-      console.log(files)
-      // var json = yield fs.readFile('package.json', 'utf8')
+      var dir = path.resolve('src/', version, 'components', component);
 
+      var fileNames = yield fs.readdir(dir);
+      var files = yield parallel(map(fileNames, partial(openFile, dir)));
+      console.log(files);
     })();
   });
 
-
-
-  app.use(mount('/', urlRoutes.middleware()));
-  app.use(mount('/components', componentRoutes.middleware()));
+  // app.use(mount('/', urlRoutes.middleware()));
+  // app.use(mount('/components', componentRoutes.middleware()));
 
   app.listen(port);
-
 }
