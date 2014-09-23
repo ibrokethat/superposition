@@ -1,3 +1,7 @@
+var path = require('path');
+var fs = require('co-fs');
+var co = require('co');
+
 var koa = require('koa');
 var Router = require('koa-router');
 
@@ -5,8 +9,7 @@ var CONF = require('config');
 var iter = require('super-iter');
 var forEach = iter.forEach;
 
-
-module.exports = function superposition (src) {
+module.exports = function * superposition (src) {
 
 
   forEach(src, initApps);
@@ -14,7 +17,7 @@ module.exports = function superposition (src) {
 }
 
 
-function initApps(def, version) {
+function initApps (def, version) {
 
   var port = CONF.app[version].port;
   var release = CONF.app[version].release;
@@ -23,8 +26,15 @@ function initApps(def, version) {
   var urlRoutes = new Router();
   var componentRoutes = new Router();
 
-  forEach(def.components, function (component) {
-    console.log(component);
+  forEach(def.components, function (dir, component) {
+
+    co(function * () {
+
+      var files = yield fs.readdir(path.resolve('src/', version, 'components', component));
+      console.log(files)
+      // var json = yield fs.readFile('package.json', 'utf8')
+
+    })();
   });
 
 
