@@ -46,7 +46,7 @@ function initApps (def, version) {
       var dir = path.resolve('src/', version, 'components', component);
 
       var fileNames = yield fs.readdir(dir);
-      var files = yield parallel(map(fileNames, partial(openFile, dir)));
+      var files = yield map(fileNames, partial(openFile, dir));
       console.log(files);
     })();
   });
