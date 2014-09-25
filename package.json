@@ -18,7 +18,7 @@
     "co-request": "0.2.x",
     "co-sleep": "0.0.x",
     "config": "0.4.x",
-    "jsdom": "0.8.x",
+    "jsdom": "git+ssh://git@github.com:ibrokethat/jsdom.git",
     "koa": "0.12.x",
     "koa-router": "3.4.x",
     "moment-timezone": "0.2.x",
