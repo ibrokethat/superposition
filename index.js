@@ -19,27 +19,55 @@ var jsdom = require('jsdom').jsdom;
 var CONF = require('config');
 
 
-module.exports = function * superposition (app, def) {
+module.exports = function * superposition (conf, def) {
 
-  var port = app.port;
-  var version = app.version;
+  var port = conf.port;
+  var version = conf.version;
 
-  var indexFile = (yield openFile(process.cwd(), CONF.files.index)).content;
-  var componentFiles = yield map(def.components, partial(getComponentFiles, version));
-  // var componentIndex = find(files, function (file) {
-  //   return file.fileName === 'index.html';
-  // });
-
-  // var components = map(componentFiles, )
-  // var doc = getDocument();
-  // var container = doc.createElement('div');
-  // container.innerHTML = componentIndex.content;
-  // container = container.firstChild;
-
-  // console.log(container.dataset.spCmp);
+  var app = koa();
+  var router = new Router();
+  var component_router = new Router();
 
 
-  console.log(componentFiles);
+  //  grab the files from the file system we need to instantiate the pipelines
+  //  used to build the components
+  var index_file = (yield openFile(CONF.files.static, 'index.html')).content;
+  var component_files = yield map(def.components, partial(getComponentFiles, version));
+
+  //  instantiate components
+  var components = map(component_files, initComponent);
+
+  //  extract routes mapped to components
+  var routes = map(ifilter(components, (cmp) => cmp.routes), initRoute);
+
+  //  register components with the component router
+  forEach(components, partial(registerComponent, component_router));
+
+  //  register routes with the url router
+  forEach(routes, partial(registerRoute, router));
+
+  //  generate api definition for running app under pjax style
+  var api_def_pjax = map(chain([components, routes]), generatePjaxApiDefinition);
+
+  //  generate api definition for running app
+  var api_def = map(chain([components, routes]), generateApiDefinition);
+
+  //  mount our endpoints
+  app.use(mount('/', router.middleware()));
+  app.use(mount('/components', component_router.middleware()))
+  app.use(mount('/pjax/apis', pjax_api_router.middleware()));
+  app.use(mount('/apis', api_router.middleware()));
+
+  app.use(mount('/', health_router.middleware()));
+
+  app.listen(port);
+
+  // build clients
+  buildPjaxClient();
+  buildClient();
+
+
+  console.log(component_files);
 
 }
 
@@ -68,38 +96,3 @@ function * getComponentFiles (version, d, component) {
   var fileNames = yield fs.readdir(dir);
   return yield map(fileNames, partial(openFile, dir));
 }
-
-
-// function initApps (def, version) {
-
-
-//   var app = koa();
-//   var urlRoutes = new Router();
-//   var componentRoutes = new Router();
-
-//   var doc = getDocument();
-
-//   forEach(def.components, function (dir, component) {
-
-//     var dir = path.resolve('src/', version, 'components', component);
-
-//     var fileNames = fs.readdirSync(dir);
-//     var files = map(fileNames, partial(openFile, dir));
-
-//     var componentIndex = find(files, function (file) {
-//       return file.fileName === 'index.html';
-//     });
-
-
-//     var container = doc.createElement('div');
-//     container.innerHTML = componentIndex.content;
-//     container = container.firstChild;
-
-//     console.log(container.dataset.spCmp);
-//   });
-
-//   // app.use(mount('/', urlRoutes.middleware()));
-//   // app.use(mount('/components', componentRoutes.middleware()));
-
-//   app.listen(port);
-// }
