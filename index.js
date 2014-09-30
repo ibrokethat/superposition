@@ -28,7 +28,6 @@ module.exports = function * superposition (conf, def) {
   var router = new Router();
   var component_router = new Router();
 
-
   //  grab the files from the file system we need to instantiate the pipelines
   //  used to build the components
   var index_file = (yield openFile(CONF.files.static, 'index.html')).content;
@@ -46,25 +45,29 @@ module.exports = function * superposition (conf, def) {
   //  register routes with the url router
   forEach(routes, partial(registerRoute, router));
 
-  //  generate api definition for running app under pjax style
-  var api_def_pjax = map(chain([components, routes]), generatePjaxApiDefinition);
+  //  generate api definition for running app with server rendering
+  var api_def_server = map(chain([components, routes]), generateServerApiDefinition);
 
-  //  generate api definition for running app
-  var api_def = map(chain([components, routes]), generateApiDefinition);
+  //  generate api definition for running app with client rendering
+  var api_def_client = map(chain([components, routes]), generateClientApiDefinition);
+
+  //  register our apis
+  registerApi(server_api_router, api_def_server);
+  registerApi(server_api_client, api_def_client);
 
   //  mount our endpoints
   app.use(mount('/', router.middleware()));
   app.use(mount('/components', component_router.middleware()))
-  app.use(mount('/pjax/apis', pjax_api_router.middleware()));
-  app.use(mount('/apis', api_router.middleware()));
+  app.use(mount('/apis/server', server_api_router.middleware()));
+  app.use(mount('/apis/client', client_api_router.middleware()));
 
   app.use(mount('/', health_router.middleware()));
 
   app.listen(port);
 
-  // build clients
-  buildPjaxClient();
-  buildClient();
+  // build frontend code bases
+  buildServerFrontend();
+  buildClientFrontend();
 
 
   console.log(component_files);
