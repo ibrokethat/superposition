@@ -1,25 +1,18 @@
-var path = require('path');
-var fs = require('co-fs');
-var co = require('co');
-var parallel = require('co-parallel');
+//  imports from cjs modules
+import * as fs from 'co-fs';
+import * as co from 'co';
+import * as koa from 'koa';
+import * as Router from 'koa-router';
+import * as CONF from 'config';
 
-var koa = require('koa');
-var Router = require('koa-router');
+import {partial} from 'super-func';
+import {find, forEach, map, reduce} from 'super-iter';
 
-var func = require('super-func');
-var partial = func.partial;
-var iter = require('super-iter');
-var find = iter.find;
-var forEach = iter.forEach;
-var map = iter.map;
-var reduce = iter.reduce;
+//  imports from es6 modules
+import loadFile from  '/lib/commands/loadFile';
+import getComponentFiles from '/lib/commands/getComponentFiles';
 
-var jsdom = require('jsdom').jsdom;
-
-var CONF = require('config');
-
-
-module.exports = function * superposition (conf, def) {
+export default function * superposition (conf, def) {
 
   var port = conf.port;
   var version = conf.version;
@@ -72,30 +65,4 @@ module.exports = function * superposition (conf, def) {
 
   console.log(component_files);
 
-}
-
-//  create a fake dom object
-function getDocument() {
-
-  return jsdom(indexFile);
-
-}
-
-
-function * openFile (dir, fileName) {
-
-  var filePath = path.join(dir, fileName);
-
-  return {
-    fileName: fileName,
-    content: yield fs.readFile(filePath, 'utf8')
-  };
-}
-
-
-function * getComponentFiles (version, d, component) {
-
-  var dir = path.resolve('src/', version, 'components', component);
-  var fileNames = yield fs.readdir(dir);
-  return yield map(fileNames, partial(openFile, dir));
 }
