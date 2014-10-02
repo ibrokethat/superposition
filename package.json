@@ -5,7 +5,7 @@
   "name": "superposition",
   "description": "Executing code in more than one env at a time.",
   "version": "0.1.0",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:ibrokethat/superposition.git"
