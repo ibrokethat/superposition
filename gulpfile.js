@@ -21,8 +21,6 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('es6-node', ['clean'], function() {
-  // Minify and copy all JavaScript (except vendor scripts)
-  // with sourcemaps all the way down
   return gulp.src(paths.src)
     .pipe(sourcemaps.init())
       .pipe(changed(paths.src_dest))

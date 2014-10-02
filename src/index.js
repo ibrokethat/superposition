@@ -1,4 +1,3 @@
-//  imports from cjs modules
 import * as path from 'path';
 import * as fs from 'co-fs';
 import * as co from 'co';
@@ -9,9 +8,8 @@ import * as CONF from 'config';
 import {partial} from 'super-func';
 import {find, forEach, map, reduce} from 'super-iter';
 
-//  imports from es6 modules
-import openFile from  './commands/openFile';
-import getComponentFiles from './commands/getComponentFiles';
+import openFile from  './utils/openFile';
+import getComponentFiles from './start/getComponentFiles';
 
 export default function * superposition (conf, def) {
 
