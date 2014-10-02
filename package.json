@@ -36,13 +36,14 @@
   },
   "devDependencies": {
     "assert": "*",
-    "should": "*",
-    "mocha": "*",
+    "blanket": "1.1.x",
     "chai": "*",
-    "sinon": "*",
-    "sinon-chai": "*",
+    "esperanto": "^0.3.11",
+    "mocha": "*",
     "rewire": "2.0.x",
-    "blanket": "1.1.x"
+    "should": "*",
+    "sinon": "*",
+    "sinon-chai": "*"
   },
   "scripts": {
     "test": "export NODE_ENV='test' && node --harmony --harmony_typeof ./node_modules/.bin/mocha --colors --harmony --harmony_typeof --recursive -R spec --ui bdd ./test",
