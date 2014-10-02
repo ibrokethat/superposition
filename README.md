@@ -18,11 +18,11 @@ expand, collapse, render
 update, teardown
 
 
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
 
 
-
-<div data-sp-cmp="body" data-sp-cmp-def='{"controllers", ["std"]}'>
+<div data-sp-cmp="body" data-sp-cmp-def='{"controllers": ["std"]}'>
 
   <div data-sp-has-one-cmp="overview" data-sp-route="/overview/:period?/:from?" data-sp-default-route="/"></div>
   <div data-sp-has-one-cmp="usage" data-sp-route="/overview/:period?/:from?"></div>
@@ -31,7 +31,7 @@ update, teardown
 </div>
 
 
-<div data-sp-cmp="overview" data-sp-cmp-def='{"model": "Overview", "controllers", ["std", "overview"]}'>
+<div data-sp-cmp="overview" data-sp-cmp-def='{"model": "Overview", "controllers": ["std", "overview"]}'>
 
   <div data-sp-has-one-cmp="date-nav" data-sp-options='{"baseClass": "overview-base", "defaultClass": "cmp-default"}'></div>
   <div data-sp-has-one-cmp="calendar" data-sp-options='{"baseClass": "cmp-base", "defaultClass": "cmp-default"}'></div>
@@ -41,7 +41,7 @@ update, teardown
 </div>
 
 
-<div data-sp-cmp="usage" data-sp-cmp-def='{"model": "Usage", "controllers", ["std", "usage"]}'>
+<div data-sp-cmp="usage" data-sp-cmp-def='{"model": "Usage", "controllers": ["std", "usage"]}'>
 
   <div data-sp-has-one-cmp="date-nav" data-sp-options='{"baseClass": "cmp-base", "defaultClass": "cmp-default"}'></div>
   <div data-sp-has-one-cmp="graph" data-sp-options='{"baseClass": "cmp-base", "defaultClass": "cmp-default"}'></div>

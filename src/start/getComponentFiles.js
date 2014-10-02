@@ -4,7 +4,7 @@ import * as fs from 'co-fs';
 import {partial} from 'super-func';
 import {map} from 'super-iter';
 
-import openFile from  './openFile';
+import openFile from  '../utils/openFile';
 
 export default function * getComponentFiles (version, d, component) {
 

@@ -8,8 +8,9 @@ import * as CONF from 'config';
 import {partial} from 'super-func';
 import {find, forEach, map, reduce} from 'super-iter';
 
-import openFile from  './utils/openFile';
 import getComponentFiles from './start/getComponentFiles';
+import initComponent from './start/initComponent';
+
 
 export default function * superposition (conf, def) {
 
@@ -22,11 +23,10 @@ export default function * superposition (conf, def) {
 
   //  grab the files from the file system we need to instantiate the pipelines
   //  used to build the components
-  var index_file = (yield openFile(path.resolve(CONF.files.static), 'index.html')).content;
   var component_files = yield map(def.components, partial(getComponentFiles, version));
 
-  // //  instantiate components
-  // var components = map(component_files, initComponent);
+  //  instantiate components
+  var components = yield map(component_files, partial(initComponent, version));
 
   // //  extract routes mapped to components
   // var routes = map(ifilter(components, (cmp) => cmp.routes), initRoute);
@@ -61,7 +61,5 @@ export default function * superposition (conf, def) {
   // buildServerFrontend();
   // buildClientFrontend();
 
-
-  console.log(component_files);
 
 }

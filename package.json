@@ -22,6 +22,7 @@
     "koa": "0.12.x",
     "koa-router": "3.4.x",
     "moment-timezone": "0.2.x",
+    "object-assign": "^1.0.0",
     "pm2": "0.10.x",
     "require-all": "0.0.x",
     "su-define-object": "git+ssh://git@github.com:super-useful/su-define-object.git",
