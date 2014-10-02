@@ -5,6 +5,8 @@ import * as fs from 'co-fs';
 import {partial} from 'super-func';
 import {map} from 'super-iter';
 
+import openFile from  './openFile';
+
 export default function * getComponentFiles (version, d, component) {
 
   var dir = path.resolve('src/', version, 'components', component);
