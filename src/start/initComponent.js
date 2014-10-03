@@ -4,6 +4,7 @@ import {find} from 'super-iter';
 
 import getDocument from '../utils/getDocument';
 
+import * as System from '../utils/moduleSystem';
 
 export default function * initComponent (version, files, component_name) {
 
@@ -42,8 +43,8 @@ export default function * initComponent (version, files, component_name) {
     config = JSON.parse(config);
 
     if (config.model) {
-      // cmp.model = yield System.import(path.relative(__dirname, 'src/' + version + '/models/' + config.model));
-      cmp.model = require(path.relative(__dirname, 'src/' + version + '/models/' + config.model));
+      cmp.model = yield System.import(path.relative(__dirname, 'src/' + version + '/models/' + config.model));
+      // cmp.model = require(path.relative(__dirname, 'src/' + version + '/models/' + config.model));
     }
 
     if (config.controllers) {
@@ -52,8 +53,8 @@ export default function * initComponent (version, files, component_name) {
 
     if (config.path) {
       cmp.path = config.path;
-      // cmp.renderer = yield System.import(path.relative(__dirname, 'src/' + version + '/components/Request'));
-      cmp.request = require(path.relative(__dirname, 'src/' + version + '/components/Reqest'));
+      cmp.request = yield System.import(path.relative(__dirname, 'src/' + version + '/components/Request'));
+      // cmp.request = require(path.relative(__dirname, 'src/' + version + '/components/Reqest'));
     }
 
   }
@@ -62,8 +63,8 @@ export default function * initComponent (version, files, component_name) {
   var renderer = find(files, file => file.fileName === 'renderer.js');
 
   if (renderer) {
-    // cmp.renderer = yield System.import(path.relative(__dirname, 'src/' + version + '/components/renderer'));
-    cmp.renderer = require(path.relative(__dirname, 'src/' + version + '/components/renderer'));
+    cmp.renderer = yield System.import(path.relative(__dirname, 'src/' + version + '/components/renderer'));
+    // cmp.renderer = require(path.relative(__dirname, 'src/' + version + '/components/renderer'));
   }
 
   console.log(cmp);

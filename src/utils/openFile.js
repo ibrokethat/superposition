@@ -2,12 +2,12 @@
 import * as path from 'path';
 import * as fs from 'co-fs';
 
-export default function * openFile (dir, fileName) {
+export default function * openFile (dir, file_name) {
 
-  var filePath = path.join(dir, fileName);
+  var file_path = path.join(dir, file_name);
 
   return {
-    fileName: fileName,
-    content: yield fs.readFile(filePath, 'utf8')
+    fileName: file_name,
+    content: yield fs.readFile(file_path, 'utf8')
   };
 }

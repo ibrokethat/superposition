@@ -21,8 +21,7 @@ export default function * superposition (conf, def) {
   var router = new Router();
   var component_router = new Router();
 
-  //  grab the files from the file system we need to instantiate the pipelines
-  //  used to build the components
+  //  grab the files we need to instantiate the pipelines used to render the components
   var component_files = yield map(def.components, partial(getComponentFiles, version));
 
   //  instantiate components

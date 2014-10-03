@@ -9,6 +9,6 @@ import openFile from  '../utils/openFile';
 export default function * getComponentFiles (version, d, component) {
 
   var dir = path.resolve('src/', version, 'components', component);
-  var fileNames = yield fs.readdir(dir);
-  return yield map(fileNames, partial(openFile, dir));
+  var file_names = yield fs.readdirs(dir);
+  return yield map(file_names, partial(openFile, dir));
 }
