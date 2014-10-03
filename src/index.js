@@ -9,7 +9,7 @@ import {partial} from 'super-func';
 import {find, forEach, map, reduce} from 'super-iter';
 
 import getComponentFiles from './start/getComponentFiles';
-import initComponent from './start/initComponent';
+import createComponentDefinitions from './start/createComponentDefinitions';
 
 
 export default function * superposition (conf, def) {
@@ -21,11 +21,11 @@ export default function * superposition (conf, def) {
   var router = new Router();
   var component_router = new Router();
 
-  //  grab the files we need to instantiate the pipelines used to render the components
+  //  grab the files we need to create the component definitions
   var component_files = yield map(def.components, partial(getComponentFiles, version));
 
-  //  instantiate components
-  var components = yield map(component_files, partial(initComponent, version));
+  //  create component definitions - used later to build the render pipelines and api definitions
+  var component_definitions = yield map(component_files, partial(createComponentDefinitions, version));
 
   // //  extract routes mapped to components
   // var routes = map(ifilter(components, (cmp) => cmp.routes), initRoute);

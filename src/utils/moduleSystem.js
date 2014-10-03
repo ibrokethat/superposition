@@ -4,10 +4,13 @@
 
   We'd use a thunked version of that eg, var module = yield System.import('');
 
-  As we are transpiling es6 modules to cjs all wee need is a wrapper around require
+  As we are transpiling es6 modules to cjs all we currently need is a wrapper around require
 
 */
-export function * import (path) {
+
+function * imports (path) {
 
   return require(path);
 }
+
+export {imports};
