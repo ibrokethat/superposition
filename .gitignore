@@ -30,3 +30,4 @@ nginx/apis.conf
 logs/
 
 static/build
+lib

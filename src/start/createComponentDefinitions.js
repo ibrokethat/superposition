@@ -1,11 +1,8 @@
 import * as path from 'path';
 
-import {find} from 'super-iter';
+import {find, map} from 'super-iter';
 
 import getDocument from '../utils/getDocument';
-
-import * as System from '../utils/moduleSystem';
-
 
 export default function * initComponent (version, files, component_name) {
 
@@ -44,38 +41,51 @@ export default function * initComponent (version, files, component_name) {
     config = JSON.parse(config);
 
     if (config.model) {
-      cmp.model = yield System.imports(path.relative(__dirname, 'src/' + version + '/models/' + config.model));
-      // cmp.model = require(path.relative(__dirname, 'src/' + version + '/models/' + config.model));
+
+      cmp.model = path.relative(__dirname, 'src/' + version + '/models/' + config.model);
     }
 
     if (config.controllers) {
+
       cmp.controllers = config.controllers;
     }
 
     if (config.path) {
+
       cmp.path = config.path;
-      cmp.request = yield System.imports(path.relative(__dirname, 'src/' + version + '/components/Request'));
-      // cmp.request = require(path.relative(__dirname, 'src/' + version + '/components/Reqest'));
+
+      if (!find(files, file => file.fileName === 'Request.js')) {
+        throw new ReferenceError('Component (' + component_name + ') has a path but no Request.js');
+      }
+
+      cmp.request = path.relative(__dirname, 'src/' + version + '/components/Request');
+
     }
 
   }
 
   //  grab any files specified by convention
-  var renderer = find(files, file => file.fileName === 'renderer.js');
+  if (find(files, file => file.fileName === 'renderer.js')) {
 
-  if (renderer) {
-    cmp.renderer = yield System.imports(path.relative(__dirname, 'src/' + version + '/components/renderer'));
-    // cmp.renderer = require(path.relative(__dirname, 'src/' + version + '/components/renderer'));
+    cmp.renderer = path.relative(__dirname, 'src/' + version + '/components/renderer');
   }
 
-  console.log(cmp);
-
-  var has_one = container.querySelectorAll('data-sp-has-one-cmp');
-  var has_many = container.querySelectorAll('data-sp-has-many-cmp');
   //  pull out any related components
+  var has_one = container.querySelectorAll('[data-sp-has-one-cmp]');
+  if (has_one.length) {
+    cmp.has.one = map(has_one, node => node.dataset.spHasOneCmp);
+  }
+
+  var has_many = container.querySelectorAll('[data-sp-has-many-cmp]');
+  if (has_many.length) {
+    cmp.has.many = map(has_many, node => node.dataset.spHasManyCmp);
+  }
 
 
 
+
+
+  console.log(cmp);
   console.log('-------------------');
 
   return files;
