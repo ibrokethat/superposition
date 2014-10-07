@@ -4,7 +4,7 @@ import {find, map} from 'super-iter';
 
 import getDocument from '../utils/getDocument';
 
-export default function * initComponent (version, files, component_name) {
+export default function * createComponentDefinition (files, component_name) {
 
   //  get the document
   var doc = yield getDocument();
@@ -42,12 +42,12 @@ export default function * initComponent (version, files, component_name) {
 
     if (config.model) {
 
-      cmp.model = path.relative(__dirname, 'src/' + version + '/models/' + config.model);
+      cmp.model = path.relative(__dirname, 'lib/models/' + config.model);
     }
 
     if (config.controllers) {
 
-      cmp.controllers = config.controllers;
+      cmp.controllers = map(config.controllers, ctl => path.relative(__dirname, 'lib/controllers/' + ctl));
     }
 
     if (config.path) {
@@ -58,7 +58,7 @@ export default function * initComponent (version, files, component_name) {
         throw new ReferenceError('Component (' + component_name + ') has a path but no Request.js');
       }
 
-      cmp.request = path.relative(__dirname, 'src/' + version + '/components/Request');
+      cmp.request = path.relative(__dirname, 'lib/components/' + component_name + '/Request');
 
     }
 
@@ -67,7 +67,7 @@ export default function * initComponent (version, files, component_name) {
   //  grab any files specified by convention
   if (find(files, file => file.fileName === 'renderer.js')) {
 
-    cmp.renderer = path.relative(__dirname, 'src/' + version + '/components/renderer');
+    cmp.renderer = path.relative(__dirname, 'lib/components/' + component_name + '/renderer');
   }
 
   //  pull out any related components

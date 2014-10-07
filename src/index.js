@@ -20,11 +20,11 @@ export default function * superposition () {
   var component_router = new Router();
 
   //  grab the files we need to create the component definitions
-  var component_file_name = yield glob('lib/**/*.*');
-  var component_files = yield map(def.components, partial(getComponentFiles, version));
-
+  var cmp_names = map(yield glob('lib/components/*'), dir_path => dir_path.split('/').pop());
+  cmp_names = reduce(cmp_names, (acc, name) => {acc[name] = {}; return acc;}, {})
+  var cmp_files = yield map(cmp_names, partial(getComponentFiles, 'lib/components'));
   //  create component definitions - used later to build the render pipelines and api definitions
-  var component_definitions = yield map(component_files, partial(createComponentDefinitions, version));
+  var cmp_definitions = yield map(cmp_files, createComponentDefinitions);
 
   // //  extract routes mapped to components
   // var routes = map(ifilter(components, (cmp) => cmp.routes), initRoute);

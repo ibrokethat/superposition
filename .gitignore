@@ -21,12 +21,6 @@ venv
 config/runtime.json
 .elasticbeanstalk/
 
-nginx/dev.yaml
-nginx/nginx.conf
-nginx/vhost.conf
-nginx/upstreams.conf
-nginx/apis.conf
-
 logs/
 
 static/build
