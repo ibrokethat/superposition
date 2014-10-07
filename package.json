@@ -30,7 +30,7 @@
     "super-func": "0.0.x",
     "super-is": "0.0.x",
     "super-iter": "git+ssh://git@github.com:ibrokethat/iter.git#v0.1.0",
-    "super-registry": "0.0.x",
+    "super-registry": "git+ssh://git@github.com:ibrokethat/registry.git#v0.1.0",
     "useful-copy": "x",
     "useful-value": "x",
     "yaml": "*"

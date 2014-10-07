@@ -1,6 +1,7 @@
 import * as path from 'path';
-import * as fs from 'co-fs';
 import * as co from 'co';
+import * as fs from 'co-fs';
+import * as glob from 'co-glob';
 import * as koa from 'koa';
 import * as Router from 'koa-router';
 import * as CONF from 'config';
@@ -12,16 +13,14 @@ import getComponentFiles from './start/getComponentFiles';
 import createComponentDefinitions from './start/createComponentDefinitions';
 
 
-export default function * superposition (conf, def) {
-
-  var port = conf.port;
-  var version = conf.version;
+export default function * superposition () {
 
   var app = koa();
   var router = new Router();
   var component_router = new Router();
 
   //  grab the files we need to create the component definitions
+  var component_file_name = yield glob('lib/**/*.*');
   var component_files = yield map(def.components, partial(getComponentFiles, version));
 
   //  create component definitions - used later to build the render pipelines and api definitions
